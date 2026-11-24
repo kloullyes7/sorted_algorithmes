@@ -1,0 +1,118 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Include the main program but rename its main function */
+#define main sorting_program_main
+#include "../sorting.c"
+#undef main
+
+/* ================= TEST FUNCTION ================= */
+
+int isCorrect(int result[], int expected[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (result[i] != expected[i])
+            return 0;
+    }
+
+    return 1;
+}
+
+/* ================= RUN ONE TEST ================= */
+
+void testAlgorithm(
+    const char *name,
+    void (*sortFunction)(int[], int),
+    int input[],
+    int expected[],
+    int n
+)
+{
+    int *copy = malloc((n > 0 ? n : 1) * sizeof(int));
+
+    if (copy == NULL)
+    {
+        printf("Memory allocation failed.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < n; i++)
+        copy[i] = input[i];
+
+    sortFunction(copy, n);
+
+    if (isCorrect(copy, expected, n))
+        printf("[PASS] %s\n", name);
+    else
+    {
+        printf("[FAIL] %s\n", name);
+
+        printf("Expected: ");
+        displayArray(expected, n);
+
+        printf("Result:   ");
+        displayArray(copy, n);
+    }
+
+    free(copy);
+}
+
+/* ================= TEST ALL ALGORITHMS ================= */
+
+void testAllAlgorithms(
+    int input[],
+    int expected[],
+    int n,
+    const char *testName
+)
+{
+    printf("\n===== %s =====\n", testName);
+
+    testAlgorithm("Bubble Sort", bubbleSort, input, expected, n);
+    testAlgorithm("Selection Sort", selectionSort, input, expected, n);
+    testAlgorithm("Insertion Sort", insertionSort, input, expected, n);
+    testAlgorithm("Merge Sort", mergeSort, input, expected, n);
+    testAlgorithm("Quick Sort", quickSort, input, expected, n);
+}
+
+/* ================= TEST MAIN ================= */
+
+int main()
+{
+    /* Random-like array */
+    int a1[] = {5, 2, 9, 1, 6};
+    int e1[] = {1, 2, 5, 6, 9};
+
+    /* Already sorted */
+    int a2[] = {1, 2, 3, 4, 5};
+    int e2[] = {1, 2, 3, 4, 5};
+
+    /* Reverse sorted */
+    int a3[] = {5, 4, 3, 2, 1};
+    int e3[] = {1, 2, 3, 4, 5};
+
+    /* Duplicate elements */
+    int a4[] = {4, 2, 4, 1, 2, 1};
+    int e4[] = {1, 1, 2, 2, 4, 4};
+
+    /* Single element */
+    int a5[] = {42};
+    int e5[] = {42};
+
+    /* Empty array */
+    int a6[] = {};
+    int e6[] = {};
+
+    testAllAlgorithms(a1, e1, 5, "Random Array");
+    testAllAlgorithms(a2, e2, 5, "Already Sorted Array");
+    testAllAlgorithms(a3, e3, 5, "Reverse Sorted Array");
+    testAllAlgorithms(a4, e4, 6, "Duplicate Elements");
+    testAllAlgorithms(a5, e5, 1, "Single Element");
+    testAllAlgorithms(a6, e6, 0, "Empty Array");
+
+    printf("\nAll tests completed.\n");
+
+    return 0;
+}
