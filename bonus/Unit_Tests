@@ -1,0 +1,69 @@
+/* tests/test_sorting.c */
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../src/sorting.h"
+#include "../src/utils.h"
+
+typedef struct {
+    const char *name;
+    void (*fn)(int *, size_t);
+} NamedSort;
+
+static void run_tests_for_algorithm(NamedSort alg) {
+    /* 1. Empty & single-element arrays */
+    alg.fn(NULL, 0);
+    int single[1] = {42};
+    alg.fn(single, 1);
+    assert(single[0] == 42);
+
+    /* 2. Handcrafted edge cases (negatives, duplicates, reverse, already sorted) */
+    int cases[][8] = {
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {9, 8, 7, 6, 5, 4, 3, 2},
+        {-15, 30, -15, 0, 12, -99, 12, 4},
+        {-5, -4, -3, -2, -1, 0, 1, 2},
+        {100, -100, 50, -50, 25, -25, 0, 1}
+    };
+
+    size_t num_cases = sizeof(cases) / sizeof(cases[0]);
+    for (size_t c = 0; c < num_cases; c++) {
+        int buf[8];
+        memcpy(buf, cases[c], sizeof(buf));
+        alg.fn(buf, 8);
+        assert(is_sorted(buf, 8));
+    }
+
+    /* 3. Larger random array */
+    const size_t n = 2000;
+    int *rand_arr = create_array(n, INPUT_RANDOM, 999u);
+    assert(rand_arr != NULL);
+    alg.fn(rand_arr, n);
+    assert(is_sorted(rand_arr, n));
+    free(rand_arr);
+
+    printf("[PASS] %s\n", alg.name);
+}
+
+int main(void) {
+    NamedSort suite[] = {
+        {"Bubble Sort",    bubble_sort},
+        {"Selection Sort", selection_sort},
+        {"Insertion Sort", insertion_sort},
+        {"Merge Sort",     merge_sort},
+        {"Quick Sort",     quick_sort},
+        {"Heap Sort",      heap_sort},
+        {"Shell Sort",     shell_sort},
+        {"Counting Sort",  counting_sort},
+        {"libc qsort",     libc_qsort_wrapper}
+    };
+
+    size_t count = sizeof(suite) / sizeof(suite[0]);
+    for (size_t i = 0; i < count; i++) {
+        run_tests_for_algorithm(suite[i]);
+    }
+
+    printf("\nAll %zu sorting algorithm unit tests passed!\n", count);
+    return 0;
+}
