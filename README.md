@@ -100,8 +100,8 @@ Each algorithm is implemented from scratch in `src/sorting.c` without using C's 
 ## 5. Experimental Results and Machine Specifications
 
 ### Test Environment Specifications
-* **CPU:** [Your CPU Model, e.g., Intel Core i5 / AMD Ryzen 5]
-* **RAM:** [Your System RAM, e.g., 8 GB / 16 GB]
+* **CPU:** [Intel Core i5]
+* **RAM:** [16 GB]
 * **Operating System:** Linux (`x86_64`)
 * **Compiler & Flags:** `gcc -Wall -Wextra -O2 -std=c11`
 * **Benchmark Protocol:** Fixed RNG seed `42026`, averaged over `5` runs per configuration. For bulk comparison (`Option 6`), quadratic algorithms ($O(n^2)$) are skipped at $n = 100,000$ to avoid multi-minute runtimes (while remaining available individually via Options `1`–`3`).
