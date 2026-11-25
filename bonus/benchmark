@@ -1,0 +1,14 @@
+static const AlgorithmSpec ALGORITHMS[] = {
+    {"Bubble Sort",    bubble_sort,       1},
+    {"Selection Sort", selection_sort,    1},
+    {"Insertion Sort", insertion_sort,    1},
+    {"Merge Sort",     merge_sort,        0},
+    {"Quick Sort",     quick_sort,        0},
+    {"Heap Sort",      heap_sort,         0},
+    {"Shell Sort",     shell_sort,        0},
+    {"Counting Sort",  counting_sort,     0},
+    {"libc qsort",     libc_qsort_wrapper, 0}
+};
+
+BenchmarkResult results[9];
+int ranks[9] = {0};
