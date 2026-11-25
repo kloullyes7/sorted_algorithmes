@@ -1,0 +1,120 @@
+/* Append to src/sorting.h */
+void heap_sort(int *arr, size_t n);
+void shell_sort(int *arr, size_t n);
+void counting_sort(int *arr, size_t n);
+void libc_qsort_wrapper(int *arr, size_t n);
+
+/* Append to src/sorting.c */
+#include <limits.h>
+
+/* Bonus 1: Heap Sort (in-place max-heap) */
+static void sift_down(int *arr, size_t n, size_t root) {
+    while (1) {
+        size_t largest = root;
+        size_t left = 2 * root + 1;
+        size_t right = 2 * root + 2;
+
+        if (left < n && arr[left] > arr[largest]) {
+            largest = left;
+        }
+        if (right < n && arr[right] > arr[largest]) {
+            largest = right;
+        }
+        if (largest == root) {
+            break;
+        }
+        swap_int(&arr[root], &arr[largest]);
+        root = largest;
+    }
+}
+
+void heap_sort(int *arr, size_t n) {
+    if (!arr || n < 2) return;
+
+    /* Build max-heap bottom-up */
+    for (size_t i = n / 2; i > 0; i--) {
+        sift_down(arr, n, i - 1);
+    }
+
+    /* Extract elements one by one */
+    for (size_t i = n - 1; i > 0; i--) {
+        swap_int(&arr[0], &arr[i]);
+        sift_down(arr, i, 0);
+    }
+}
+
+/* Bonus 2: Shell Sort (Ciura-inspired / gap / 2 sequence) */
+void shell_sort(int *arr, size_t n) {
+    if (!arr || n < 2) return;
+
+    for (size_t gap = n / 2; gap > 0; gap /= 2) {
+        for (size_t i = gap; i < n; i++) {
+            int temp = arr[i];
+            size_t j = i;
+            while (j >= gap && arr[j - gap] > temp) {
+                arr[j] = arr[j - gap];
+                j -= gap;
+            }
+            arr[j] = temp;
+        }
+    }
+}
+
+/* Bonus 3: Counting Sort (handles negative & non-negative ints via min offset) */
+void counting_sort(int *arr, size_t n) {
+    if (!arr || n < 2) return;
+
+    int min_val = arr[0];
+    int max_val = arr[0];
+    for (size_t i = 1; i < n; i++) {
+        if (arr[i] < min_val) min_val = arr[i];
+        if (arr[i] > max_val) max_val = arr[i];
+    }
+
+    long long span = (long long)max_val - (long long)min_val + 1;
+    /* Guard against excessive range allocations */
+    if (span <= 0 || span > 10000000LL) {
+        heap_sort(arr, n);
+        return;
+    }
+
+    size_t range = (size_t)span;
+    size_t *count = (size_t *)calloc(range, sizeof(size_t));
+    int *output = (int *)malloc(n * sizeof(int));
+    if (!count || !output) {
+        free(count);
+        free(output);
+        return;
+    }
+
+    for (size_t i = 0; i < n; i++) {
+        count[(size_t)((long long)arr[i] - (long long)min_val)]++;
+    }
+
+    for (size_t i = 1; i < range; i++) {
+        count[i] += count[i - 1];
+    }
+
+    for (size_t i = n; i > 0; i--) {
+        int val = arr[i - 1];
+        size_t idx = (size_t)((long long)val - (long long)min_val);
+        output[count[idx] - 1] = val;
+        count[idx]--;
+    }
+
+    memcpy(arr, output, n * sizeof(int));
+    free(count);
+    free(output);
+}
+
+/* Bonus 4: Standard library qsort comparison wrapper */
+static int cmp_int_asc(const void *a, const void *b) {
+    int ia = *(const int *)a;
+    int ib = *(const int *)b;
+    return (ia > ib) - (ia < ib);
+}
+
+void libc_qsort_wrapper(int *arr, size_t n) {
+    if (!arr || n < 2) return;
+    qsort(arr, n, sizeof(int), cmp_int_asc);
+}
