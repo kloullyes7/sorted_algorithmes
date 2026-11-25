@@ -1,0 +1,89 @@
+Pattern,Algorithm,ArraySize,AvgTime_ms,PeakMemory_MB,Rank
+Random,Bubble Sort,1000,2.592492,288.7500,5
+Random,Selection Sort,1000,1.281928,288.7500,4
+Random,Insertion Sort,1000,0.350712,288.7500,3
+Random,Merge Sort,1000,0.056052,288.7500,2
+Random,Quick Sort,1000,0.039248,288.7500,1
+Random,Bubble Sort,5000,62.435514,288.7500,5
+Random,Selection Sort,5000,32.207567,288.7500,4
+Random,Insertion Sort,5000,5.120982,288.7500,3
+Random,Merge Sort,5000,0.391154,288.7500,2
+Random,Quick Sort,5000,0.343838,288.7500,1
+Random,Bubble Sort,10000,245.784078,288.7500,5
+Random,Selection Sort,10000,125.453029,288.7500,4
+Random,Insertion Sort,10000,28.386205,288.7500,3
+Random,Merge Sort,10000,1.050399,288.7500,2
+Random,Quick Sort,10000,0.859821,288.7500,1
+Random,Bubble Sort,50000,8202.377183,288.7500,5
+Random,Selection Sort,50000,3124.537113,288.7500,4
+Random,Insertion Sort,50000,671.589331,288.7500,3
+Random,Merge Sort,50000,5.883276,288.7500,2
+Random,Quick Sort,50000,4.752026,288.7500,1
+Random,Merge Sort,100000,12.288998,288.7500,2
+Random,Quick Sort,100000,10.365998,288.7500,1
+Already Sorted,Bubble Sort,1000,0.001761,288.7500,1
+Already Sorted,Selection Sort,1000,1.362601,288.7500,5
+Already Sorted,Insertion Sort,1000,0.002359,288.7500,2
+Already Sorted,Merge Sort,1000,0.036554,288.7500,4
+Already Sorted,Quick Sort,1000,0.022488,288.7500,3
+Already Sorted,Bubble Sort,5000,0.008952,288.7500,1
+Already Sorted,Selection Sort,5000,31.637653,288.7500,5
+Already Sorted,Insertion Sort,5000,0.011957,288.7500,2
+Already Sorted,Merge Sort,5000,0.215640,288.7500,4
+Already Sorted,Quick Sort,5000,0.130823,288.7500,3
+Already Sorted,Bubble Sort,10000,0.020753,288.7500,2
+Already Sorted,Selection Sort,10000,128.631960,288.7500,5
+Already Sorted,Insertion Sort,10000,0.020173,288.7500,1
+Already Sorted,Merge Sort,10000,0.280500,288.7500,4
+Already Sorted,Quick Sort,10000,0.200809,288.7500,3
+Already Sorted,Bubble Sort,50000,0.067703,288.7500,1
+Already Sorted,Selection Sort,50000,3243.325846,288.7500,5
+Already Sorted,Insertion Sort,50000,0.114903,288.7500,2
+Already Sorted,Merge Sort,50000,2.214818,288.7500,4
+Already Sorted,Quick Sort,50000,1.292042,288.7500,3
+Already Sorted,Merge Sort,100000,4.659846,288.7500,2
+Already Sorted,Quick Sort,100000,2.617637,288.7500,1
+Reverse Sorted,Bubble Sort,1000,4.558172,288.7500,5
+Reverse Sorted,Selection Sort,1000,1.238491,288.7500,4
+Reverse Sorted,Insertion Sort,1000,0.681284,288.7500,3
+Reverse Sorted,Merge Sort,1000,0.029524,288.7500,2
+Reverse Sorted,Quick Sort,1000,0.017320,288.7500,1
+Reverse Sorted,Bubble Sort,5000,112.929781,288.7500,5
+Reverse Sorted,Selection Sort,5000,31.245928,288.7500,4
+Reverse Sorted,Insertion Sort,5000,16.330031,288.7500,3
+Reverse Sorted,Merge Sort,5000,0.129574,288.7500,2
+Reverse Sorted,Quick Sort,5000,0.094575,288.7500,1
+Reverse Sorted,Bubble Sort,10000,449.768524,288.7500,5
+Reverse Sorted,Selection Sort,10000,125.914865,288.7500,4
+Reverse Sorted,Insertion Sort,10000,52.389101,288.7500,3
+Reverse Sorted,Merge Sort,10000,0.344928,288.7500,2
+Reverse Sorted,Quick Sort,10000,0.242371,288.7500,1
+Reverse Sorted,Bubble Sort,50000,11414.716350,288.7500,5
+Reverse Sorted,Selection Sort,50000,3254.286380,288.7500,4
+Reverse Sorted,Insertion Sort,50000,1393.375029,288.7500,3
+Reverse Sorted,Merge Sort,50000,2.861094,288.7500,2
+Reverse Sorted,Quick Sort,50000,1.505833,288.7500,1
+Reverse Sorted,Merge Sort,100000,4.335214,288.7500,2
+Reverse Sorted,Quick Sort,100000,2.258931,288.7500,1
+Many Duplicates,Bubble Sort,1000,2.491483,288.7500,5
+Many Duplicates,Selection Sort,1000,1.291866,288.7500,4
+Many Duplicates,Insertion Sort,1000,0.353197,288.7500,3
+Many Duplicates,Merge Sort,1000,0.036908,288.7500,2
+Many Duplicates,Quick Sort,1000,0.028427,288.7500,1
+Many Duplicates,Bubble Sort,5000,59.623352,288.7500,5
+Many Duplicates,Selection Sort,5000,32.466138,288.7500,4
+Many Duplicates,Insertion Sort,5000,5.507630,288.7500,3
+Many Duplicates,Merge Sort,5000,0.285322,288.7500,2
+Many Duplicates,Quick Sort,5000,0.192901,288.7500,1
+Many Duplicates,Bubble Sort,10000,239.025944,288.7500,5
+Many Duplicates,Selection Sort,10000,126.375972,288.7500,4
+Many Duplicates,Insertion Sort,10000,25.204328,288.7500,3
+Many Duplicates,Merge Sort,10000,0.608968,288.7500,2
+Many Duplicates,Quick Sort,10000,0.413603,288.7500,1
+Many Duplicates,Bubble Sort,50000,8128.218386,288.7500,5
+Many Duplicates,Selection Sort,50000,3144.898078,288.7500,4
+Many Duplicates,Insertion Sort,50000,589.926657,288.7500,3
+Many Duplicates,Merge Sort,50000,3.935896,288.7500,2
+Many Duplicates,Quick Sort,50000,2.219669,288.7500,1
+Many Duplicates,Merge Sort,100000,8.700772,288.7500,2
+Many Duplicates,Quick Sort,100000,5.234395,288.7500,1
