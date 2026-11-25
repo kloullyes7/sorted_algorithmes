@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""Generate execution time and peak memory charts from results/comparison.csv."""
+
+from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def main() -> None:
+    csv_path = Path("results/comparison.csv")
+    out_dir = Path("results")
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    if not csv_path.exists():
+        raise FileNotFoundError(
+            f"{csv_path} not found. Run ./sorting_bench and choose the comparison option first."
+        )
+
+    df = pd.read_csv(csv_path)
+    df["ArraySize"] = pd.to_numeric(df["ArraySize"])
+    df["AvgTime_ms"] = pd.to_numeric(df["AvgTime_ms"])
+    df["PeakMemory_MB"] = pd.to_numeric(df["PeakMemory_MB"])
+
+    # 1. Execution Time Chart
+    plt.figure(figsize=(10, 6))
+    for alg_name, group in df.groupby("Algorithm"):
+        group = group.sort_values("ArraySize")
+        plt.plot(group["ArraySize"], group["AvgTime_ms"], marker="o", label=alg_name)
+
+    plt.title("Average Execution Time vs. Array Size")
+    plt.xlabel("Array Size (elements)")
+    plt.ylabel("Average Time (ms)")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.grid(True, which="both", linestyle="--", alpha=0.4)
+    plt.legend(bbox_to_anchor=(1.02, 1), loc="upper left")
+    plt.tight_layout()
+    time_chart = out_dir / "execution_time.png"
+    plt.savefig(time_chart, dpi=200)
+    plt.close()
+
+    # 2. Peak Memory Chart
+    plt.figure(figsize=(10, 6))
+    for alg_name, group in df.groupby("Algorithm"):
+        group = group.sort_values("ArraySize")
+        plt.plot(group["ArraySize"], group["PeakMemory_MB"], marker="s", label=alg_name)
+
+    plt.title("Peak Memory Usage vs. Array Size")
+    plt.xlabel("Array Size (elements)")
+    plt.ylabel("Peak Memory (MB)")
+    plt.xscale("log")
+    plt.grid(True, which="both", linestyle="--", alpha=0.4)
+    plt.legend(bbox_to_anchor=(1.02, 1), loc="upper left")
+    plt.tight_layout()
+    mem_chart = out_dir / "peak_memory.png"
+    plt.savefig(mem_chart, dpi=200)
+    plt.close()
+
+    print(f"Generated charts:\n  - {time_chart}\n  - {mem_chart}")
+
+
+if __name__ == "__main__":
+    main()
